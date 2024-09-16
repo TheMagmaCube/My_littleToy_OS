@@ -1,4 +1,4 @@
-package com.MyLittleToyOS.os;
+package com.main.java.MyLittleToyOS.os;
 
 
 public class Main {

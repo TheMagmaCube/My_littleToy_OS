@@ -1,6 +1,5 @@
-package com.MyLittleToyOS.os;
+package com.main.java.MyLittleToyOS.os;
 import java.util.Scanner;
-import java.math.*;
 
 public class calculator {
     Scanner scannner = new Scanner(System.in);
