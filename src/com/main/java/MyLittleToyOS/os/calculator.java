@@ -1,107 +1,108 @@
 package com.main.java.MyLittleToyOS.os;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.HashMap;
+import java.util.List;
 
 public class calculator {
-    Scanner scannner = new Scanner(System.in);
-    String choice;
+    private Scanner scanner = new Scanner(System.in);
+    private String[] ingredients_of_action;
+    private ArrayList<String> numbers = new ArrayList<>();
+    private ArrayList<Double> double_numbers;
+    private ArrayList<String> sings = new ArrayList<>();
 
 
-    public void Menu(){
-        while(true){
-            String choice = scannner.next();
-            switch (choice) {
-                case "+" :
-                    double result1 = add();
-                    System.out.println(result1);
-                    break;
-                case "-" :
-                    double result2 = steal();
-                    System.out.println(result2);
-                    break;
-                case "*" :
-                    double result3 = multiple();
-                    System.out.println(result3);
-                    break;
-                case "^" :
-                    double result4 = exponentiation();
-                    System.out.println(result4);
-                    break;
-                case "//":
-                    double result5 = elementalization();
-                    System.out.println(result5);
-                    break;
-                case "cos":
-                    double result6 = cos();
-                    System.out.println(result6);
-                    break;
-                case "sin":
-                    double result7 = sin();
-                    System.out.println(result7);
-                    break;
-                case "/":
-                    double result8 = division();
-                    System.out.println(result8);
-                    break;
-                case "log":
-                    double result9 = log();
-                    System.out.println(result9);
-                    break;
-                case "exit":
-                    System.exit(0);
-                default:
-                    break;
+    public void Menu() {
+        while (true) {
+            boolean number = true;
+            String choice = scanner.nextLine();
+            ingredients_of_action = choice.split(" ");
+            for (int i = 0; i < ingredients_of_action.length; i++) {
+                numbers.add(ingredients_of_action[i]);
+                try{
+                    sings.add(ingredients_of_action[i + 1]);
+                }catch (Exception e){
+
+                };
+        calculate();
+
             }
-
         }
     }
+    private void calculate(){
+        convert();
+        /*while(!sings.isEmpty()){
+        times(0);
+        division(0);
+        add(0);
+        subtract(0);
+        System.out.println(double_numbers);
+        }*/
 
-    private double add(){
-        double number1 = scannner.nextDouble();
-        double number2 = scannner.nextDouble();
-        double result = number1 + number2;
+    }
+    private void convert(){
+        double_numbers = new ArrayList<Double>(numbers.size());
+        for(int i = 0; i < numbers.size(); i++){
+            double_numbers.add(i, Double.parseDouble(numbers.get(i)));
+        }
+    }
+    private double times(double result){
+        for(int i = 0; i < sings.size(); i++){
+            if(sings.get(i).equals("*")){
+                sings.remove(i);
+                Double num1 = double_numbers.get(i);
+                Double num2 = double_numbers.get(i + 1);
+                double_numbers.remove(i + 1);
+                result = num1 * num2;
+                double_numbers.set(i, result);
+                break;
+            }
+        }
         return result;
     }
-    private double steal(){
-        double number1 = scannner.nextDouble();
-        double number2 = scannner.nextDouble();
-        double result = number1 - number2;
+    private double division(double result){
+        for(int i = 0; i < sings.size(); i++){
+            if(sings.get(i).equals("/")){
+                sings.remove(i);
+                Double num1 = double_numbers.get(i);
+                Double num2 = double_numbers.get(i + 1);
+                double_numbers.remove(i + 1);
+                result = num1 / num2;
+                double_numbers.set(i, result);
+                break;
+            }
+        }
         return result;
     }
-    private double multiple(){
-        double number1 = scannner.nextDouble();
-        double number2 = scannner.nextDouble();
-        double result = number1 * number2;
+    private double add(double result){
+        for(int i = 0; i < sings.size(); i++){
+            if(sings.get(i).equals("+")){
+                sings.remove(i);
+                Double num1 = double_numbers.get(i);
+                Double num2 = double_numbers.get(i + 1);
+                double_numbers.remove(i + 1);
+                result = num1 + num2;
+                double_numbers.set(i, result);
+                break;
+            }
+        }
         return result;
     }
-    private double elementalization(){
-        double number1 = scannner.nextDouble();
-        double result = Math.sqrt(number1);
+    private double subtract(double result){
+        for(int i = 0; i < sings.size(); i++){
+            if(sings.get(i).equals("-")){
+                sings.remove(i);
+                Double num1 = double_numbers.get(i);
+                Double num2 = double_numbers.get(i + 1);
+                double_numbers.remove(i + 1);
+                result = num1 - num2;
+                double_numbers.set(i, result);
+                break;
+            }
+        }
         return result;
     }
-    private double exponentiation(){
-        double number1 = scannner.nextDouble();
-        double result = Math.exp(number1);
-        return result;
-    }
-    private double division(){
-        double number1 = scannner.nextDouble();
-        double number2 = scannner.nextDouble();
-        double result = number1 / number2;
-        return result;
-    }
-    private double cos(){
-        double number1 = scannner.nextDouble();
-        double result = Math.cos(number1);
-        return result;
-    }
-    private double sin(){
-        double number1 = scannner.nextDouble();
-        double result = Math.sin(number1);
-        return result;
-    }
-    private double log(){
-        double number1 = scannner.nextDouble();
-        double result = Math.log(number1);
-        return result;
-    }
+
+
 }
