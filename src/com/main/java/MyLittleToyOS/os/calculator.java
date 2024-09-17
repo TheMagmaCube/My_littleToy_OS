@@ -13,32 +13,34 @@ public class calculator {
     private ArrayList<String> sings = new ArrayList<>();
 
 
-    public void Menu() {
+    public void Menu(boolean number) {
         while (true) {
-            boolean number = true;
+            number = true;
             String choice = scanner.nextLine();
             ingredients_of_action = choice.split(" ");
             for (int i = 0; i < ingredients_of_action.length; i++) {
-                numbers.add(ingredients_of_action[i]);
-                try{
-                    sings.add(ingredients_of_action[i + 1]);
-                }catch (Exception e){
-
-                };
-        calculate();
+                if(number){
+                    numbers.add(ingredients_of_action[i]);
+                    number = false;
+                }else if(!number){
+                    sings.add(ingredients_of_action[i]);
+                    number = true;
+                }
 
             }
+            calculate();
         }
     }
     private void calculate(){
         convert();
-        /*while(!sings.isEmpty()){
+        while(!sings.isEmpty()){
         times(0);
         division(0);
         add(0);
         subtract(0);
-        System.out.println(double_numbers);
-        }*/
+        }
+        System.out.print(" = " + double_numbers.get(0));
+        double_numbers.clear();
 
     }
     private void convert(){
