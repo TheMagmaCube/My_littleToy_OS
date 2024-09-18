@@ -1,4 +1,5 @@
 package com.main.java.MyLittleToyOS.os;
+import java.math.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -36,6 +37,7 @@ public class calculator {
         convert();
         if(exception != true) {
             while (!sings.isEmpty()) {
+                element(0);
                 times(0);
                 division(0);
                 subtract(0);
@@ -114,6 +116,18 @@ public class calculator {
                 Double num2 = double_numbers.get(i + 1);
                 double_numbers.remove(i + 1);
                 result = num1 - num2;
+                double_numbers.set(i, result);
+                break;
+            }
+        }
+        return result;
+    }
+    private double element(double result){
+        for(int i = 0; i < sings.size(); i++){
+            if(sings.get(i).equals("//")){
+                sings.remove(i);
+                Double num1 = double_numbers.get(i);
+                result = Math.sqrt(num1);
                 double_numbers.set(i, result);
                 break;
             }
