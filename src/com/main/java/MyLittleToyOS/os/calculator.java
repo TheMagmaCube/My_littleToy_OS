@@ -18,6 +18,7 @@ public class calculator {
 
     public void Menu() {
         while (true) {
+            exception = false;
             number = true;
             choice = scanner.nextLine();
             ingredients_of_action = choice.split(" ");
@@ -37,11 +38,11 @@ public class calculator {
         convert();
         if(exception != true) {
             while (!sings.isEmpty()) {
-                element(0);
-                times(0);
-                division(0);
-                subtract(0);
-                add(0);
+                element();
+                times();
+                division();
+                subtract();
+                add();
             }
             System.out.println(double_numbers.get(0));
             clear();
@@ -56,84 +57,88 @@ public class calculator {
     }
     private void convert(){
         try {
-            exception = false;
             double_numbers = new ArrayList<Double>(numbers.size());
             for (int i = 0; i < numbers.size(); i++) {
+                String string = numbers.get(i);
+                if(string.length() > 1){
+                    exception = true;
+                    System.err.println("You must always paste space between characters of mathematical operators.");
+                }
                 double_numbers.add(i, Double.parseDouble(numbers.get(i)));
             }
         } catch (NumberFormatException e){
             exception = true;
             System.err.println("You must to type number.");
         }
+        for(int i = 0; i < sings.size(); i++){
+            String string = sings.get(i);
+            if(string.length() > 1){
+                exception = true;
+                System.err.println("You must always paste space between characters of mathematical operators.");
+            }
+        }
     }
-    private double times(double result){
+    private void times(){
         for(int i = 0; i < sings.size(); i++){
             if(sings.get(i).equals("*")){
                 sings.remove(i);
                 Double num1 = double_numbers.get(i);
                 Double num2 = double_numbers.get(i + 1);
                 double_numbers.remove(i + 1);
-                result = num1 * num2;
+                double result = num1 * num2;
                 double_numbers.set(i, result);
-                break;
+                i--;
             }
         }
-        return result;
     }
-    private double division(double result){
+    private void division(){
         for(int i = 0; i < sings.size(); i++){
             if(sings.get(i).equals("/")){
                 sings.remove(i);
                 Double num1 = double_numbers.get(i);
                 Double num2 = double_numbers.get(i + 1);
                 double_numbers.remove(i + 1);
-                result = num1 / num2;
+                double result = num1 / num2;
                 double_numbers.set(i, result);
-                break;
+                i--;
             }
         }
-        return result;
     }
-    private double add(double result){
+    private void add(){
         for(int i = 0; i < sings.size(); i++){
             if(sings.get(i).equals("+")){
                 sings.remove(i);
                 Double num1 = double_numbers.get(i);
                 Double num2 = double_numbers.get(i + 1);
                 double_numbers.remove(i + 1);
-                result = num1 + num2;
+                double result = num1 + num2;
                 double_numbers.set(i, result);
-                break;
+                i--;
             }
         }
-        return result;
     }
-    private double subtract(double result){
+    private void subtract(){
         for(int i = 0; i < sings.size(); i++){
             if(sings.get(i).equals("-")){
                 sings.remove(i);
                 Double num1 = double_numbers.get(i);
                 Double num2 = double_numbers.get(i + 1);
                 double_numbers.remove(i + 1);
-                result = num1 - num2;
+                double result = num1 - num2;
                 double_numbers.set(i, result);
-                break;
+                i--;
             }
         }
-        return result;
     }
-    private double element(double result){
+    private void element(){
         for(int i = 0; i < sings.size(); i++){
             if(sings.get(i).equals("//")){
                 sings.remove(i);
                 Double num1 = double_numbers.get(i);
-                result = Math.sqrt(num1);
+                double result = Math.sqrt(num1);
                 double_numbers.set(i, result);
-                break;
+                i--;
             }
         }
-        return result;
     }
-
-
 }
