@@ -60,10 +60,6 @@ public class calculator {
             double_numbers = new ArrayList<Double>(numbers.size());
             for (int i = 0; i < numbers.size(); i++) {
                 String string = numbers.get(i);
-                if(string.length() > 1){
-                    exception = true;
-                    System.err.println("You must always paste space between characters of mathematical operators.");
-                }
                 double_numbers.add(i, Double.parseDouble(numbers.get(i)));
             }
         } catch (NumberFormatException e){
