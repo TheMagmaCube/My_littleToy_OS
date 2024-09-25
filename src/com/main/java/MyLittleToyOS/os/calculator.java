@@ -64,13 +64,34 @@ public class calculator {
             }
         } catch (NumberFormatException e){
             exception = true;
-            System.err.println("You must to type number.");
+            System.err.println("You must paste space between characters.");
         }
-        for(int i = 0; i < sings.size(); i++){
-            String string = sings.get(i);
-            if(string.length() > 1){
+        if(!exception) {
+            for (int i = 0; i < sings.size(); i++) {
+                String string = sings.get(i);
+                if (string.length() > 1) {
+                    exception = true;
+                    System.err.println("You must paste space between characters.");
+                }
+            }
+        }
+        no_useful_sings();
+    }
+    private void no_useful_sings(){
+        if(!exception) {
+            Boolean have = false;
+            for (int i = 0; i < sings.size(); i++) {
+                String sing = sings.get(i);
+                if (sings.get(i).equals("*") || sings.get(i).equals("//") || sings.get(i).equals("/")
+                        || sings.get(i).equals("+") || sings.get(i).equals("-")) {
+
+                } else {
+                    have = true;
+                }
+            }
+            if (have == true) {
+                System.err.println("You must to type correct operator.");
                 exception = true;
-                System.err.println("You must always paste space between characters of mathematical operators.");
             }
         }
     }
